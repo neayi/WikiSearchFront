@@ -3961,6 +3961,26 @@ module.exports = !!Object.getOwnPropertySymbols && !fails(function () {
 
 /***/ }),
 
+/***/ "498a":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var $ = __webpack_require__("23e7");
+var $trim = __webpack_require__("58a8").trim;
+var forcedStringTrimMethod = __webpack_require__("c8d2");
+
+// `String.prototype.trim` method
+// https://tc39.es/ecma262/#sec-string.prototype.trim
+$({ target: 'String', proto: true, forced: forcedStringTrimMethod('trim') }, {
+  trim: function trim() {
+    return $trim(this);
+  }
+});
+
+
+/***/ }),
+
 /***/ "4d05":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -8248,6 +8268,28 @@ module.exports = g;
 
 /***/ }),
 
+/***/ "c8d2":
+/***/ (function(module, exports, __webpack_require__) {
+
+var PROPER_FUNCTION_NAME = __webpack_require__("5e77").PROPER;
+var fails = __webpack_require__("d039");
+var whitespaces = __webpack_require__("5899");
+
+var non = '\u200B\u0085\u180E';
+
+// check that a method works with the correct list
+// of whitespaces and has a correct name
+module.exports = function (METHOD_NAME) {
+  return fails(function () {
+    return !!whitespaces[METHOD_NAME]()
+      || non[METHOD_NAME]() !== non
+      || (PROPER_FUNCTION_NAME && whitespaces[METHOD_NAME].name !== METHOD_NAME);
+  });
+};
+
+
+/***/ }),
+
 /***/ "ca84":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -9650,6 +9692,9 @@ var es_regexp_to_string = __webpack_require__("25f0");
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.json.stringify.js
 var es_json_stringify = __webpack_require__("e9c4");
 
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.string.trim.js
+var es_string_trim = __webpack_require__("498a");
+
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.sort.js
 var es_array_sort = __webpack_require__("4e82");
 
@@ -9686,6 +9731,7 @@ function readableDate(date) {
 
 
 // CONCATENATED MODULE: ./src/store.js
+
 
 
 
@@ -10084,9 +10130,14 @@ var updateStore = function updateStore(store) {
         limit: state.size,
         pageid: mediaWikiValues.wgArticleId,
         aggregations: JSON.stringify(state.dates)
-      };
+      }; // Add fuzziness
 
-      if (mediaWikiValues.WikiSearchFront.config.settings['search on empty queries'] === 'true' && params.term.length === 0) {
+      if (mediaWikiValues.WikiSearchFront.config.settings['fuzzy search'] === 'true' && params.term.trim().length > 0) {
+        params.term = params.term.split(' ').join('~ ').trim().concat('~');
+      } // Remove the search term when it is empty in order to avoid getting no results
+
+
+      if (mediaWikiValues.WikiSearchFront.config.settings['search on empty queries'] === 'true' && params.term.trim().length === 0) {
         delete params.term;
       } // when sort options are configured add them to the parameters
 

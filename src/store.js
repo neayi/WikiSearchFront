@@ -349,9 +349,17 @@ const updateStore = (store) => {
         aggregations: JSON.stringify(state.dates),
       };
 
+      // Add fuzziness
+      if (mediaWikiValues.WikiSearchFront.config.settings['fuzzy search'] === 'true'
+          && params.term.trim().length > 0
+      ) {
+        params.term = params.term.split(' ').join('~ ').trim().concat('~');
+      }
+
+      // Remove the search term when it is empty in order to avoid getting no results
       if (
         mediaWikiValues.WikiSearchFront.config.settings['search on empty queries'] === 'true'
-        && params.term.length === 0
+        && params.term.trim().length === 0
       ) {
         delete params.term;
       }
