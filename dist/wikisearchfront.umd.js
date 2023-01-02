@@ -9604,7 +9604,6 @@ var staticRenderFns = []
 
 // CONCATENATED MODULE: ./src/App.vue?vue&type=template&id=7ca755a2&
 
-
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.object.keys.js
 var es_object_keys = __webpack_require__("b64b");
 
@@ -9787,6 +9786,7 @@ function _arrayWithHoles(arr) {
 
 
 
+
 function _iterableToArrayLimit(arr, i) {
   var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"];
 
@@ -9849,9 +9849,6 @@ var es_regexp_to_string = __webpack_require__("25f0");
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.json.stringify.js
 var es_json_stringify = __webpack_require__("e9c4");
-
-// EXTERNAL MODULE: ./node_modules/core-js/modules/es.string.trim.js
-var es_string_trim = __webpack_require__("498a");
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.sort.js
 var es_array_sort = __webpack_require__("4e82");
@@ -9937,6 +9934,9 @@ var prepareQuery = function prepareQuery(term) {
 
 /* harmony default export */ var elastic = (prepareQuery);
 // CONCATENATED MODULE: ./src/store.js
+
+
+
 
 
 
@@ -10376,17 +10376,7 @@ var store_updateStore = function updateStore(store) {
         limit: state.size,
         pageid: mediaWikiValues.wgArticleId,
         aggregations: JSON.stringify(state.dates)
-      }; // Add fuzziness
-
-      if (mediaWikiValues.WikiSearchFront.config.settings['fuzzy search'] === 'true' && params.term.trim().length > 0) {
-        params.term = params.term.split(' ').join('~ ').trim().concat('~');
-      } // Remove the search term when it is empty in order to avoid getting no results
-
-
-      if (mediaWikiValues.WikiSearchFront.config.settings['search on empty queries'] === 'true' && params.term.trim().length === 0) {
-        delete params.term;
-      } // when sort options are configured add them to the parameters
-
+      }; // when sort options are configured add them to the parameters
 
       if (mediaWikiValues.WikiSearchFront.config.settings['sort options'] && state.sortOrderType !== 'score') {
         params.sortings = JSON.stringify([{
@@ -10617,13 +10607,12 @@ function stringUtils_sanitize(string) {
 }
 
 
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"39788808-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/SearchInput.vue?vue&type=template&id=01a99858&
+var SearchInputvue_type_template_id_01a99858_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"wikisearch-search wikisearch--has-button",attrs:{"aria-disabled":"false","role":"search"}},[_c('div',{staticClass:"wikisearch-search__wrapper"},[_c('div',{ref:'syntax',staticClass:"wikisearch-syntax",domProps:{"innerHTML":_vm._s(_vm.highlightedTerm)}}),_c('wikisearch-input',{attrs:{"pending":_vm.$store.state.loading,"clearable":true,"start-icon":'search',"placeholder":_vm.$i18n('search')},on:{"input":_vm.onInput,"enter":_vm.search,"scroll":_vm.syncScroll,"clear":_vm.clearTerm},model:{value:(_vm.term),callback:function ($$v) {_vm.term=$$v},expression:"term"}})],1),_c('wikisearch-button',{attrs:{"label":_vm.$i18n('search'),"type":'progressive'},on:{"click":_vm.search}}),(_vm.hasInfo)?_c('wikisearch-tooltip',{scopedSlots:_vm._u([{key:"slot",fn:function(){return [_c('div',{domProps:{"innerHTML":_vm._s(_vm.highlightedInfo)}})]},proxy:true},{key:"button",fn:function(){return [_c('wikisearch-button',{attrs:{"icon":'info',"type":'icon'}})]},proxy:true}],null,false,2795427984)}):_vm._e()],1)}
+var SearchInputvue_type_template_id_01a99858_staticRenderFns = []
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"39788808-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/SearchInput.vue?vue&type=template&id=6d146d7e&
-var SearchInputvue_type_template_id_6d146d7e_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"wikisearch-search wikisearch--has-button",attrs:{"aria-disabled":"false","role":"search"}},[_c('div',{staticClass:"wikisearch-search__wrapper"},[_c('div',{ref:'syntax',staticClass:"wikisearch-syntax",domProps:{"innerHTML":_vm._s(_vm.highlightedTerm)}}),_c('wikisearch-input',{attrs:{"pending":_vm.$store.state.loading,"clearable":true,"start-icon":'search',"placeholder":_vm.$i18n('search')},on:{"input":_vm.onInput,"enter":_vm.search,"scroll":_vm.syncScroll,"clear":_vm.clearTerm},model:{value:(_vm.term),callback:function ($$v) {_vm.term=$$v},expression:"term"}})],1),_c('wikisearch-button',{attrs:{"label":_vm.$i18n('search'),"type":'progressive'},on:{"click":_vm.search}}),(_vm.hasInfo)?_c('wikisearch-tooltip',{scopedSlots:_vm._u([{key:"slot",fn:function(){return [_c('div',{domProps:{"innerHTML":_vm._s(_vm.highlightedInfo)}})]},proxy:true},{key:"button",fn:function(){return [_c('wikisearch-button',{attrs:{"icon":'info',"type":'icon'}})]},proxy:true}],null,false,2795427984)}):_vm._e()],1)}
-var SearchInputvue_type_template_id_6d146d7e_staticRenderFns = []
 
-
-// CONCATENATED MODULE: ./src/components/SearchInput.vue?vue&type=template&id=6d146d7e&
+// CONCATENATED MODULE: ./src/components/SearchInput.vue?vue&type=template&id=01a99858&
 
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"39788808-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/Input.vue?vue&type=template&id=7ccec1c1&
 var Inputvue_type_template_id_7ccec1c1_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"wikisearch-input",class:_vm.classes},[_c('input',_vm._b({ref:'input',class:{
@@ -11263,9 +11252,8 @@ var SearchInputvue_type_style_index_0_lang_css_ = __webpack_require__("635d");
 
 var SearchInput_component = normalizeComponent(
   components_SearchInputvue_type_script_lang_js_,
-  SearchInputvue_type_template_id_2c0304ac_render,
-  SearchInputvue_type_template_id_2c0304ac_staticRenderFns,
-
+  SearchInputvue_type_template_id_01a99858_render,
+  SearchInputvue_type_template_id_01a99858_staticRenderFns,
   false,
   null,
   null,
@@ -12358,6 +12346,12 @@ var WikiTemplate_component = normalizeComponent(
 
 
 
+
+
+
+
+
+
 //
 //
 //
@@ -12683,6 +12677,7 @@ var ResultProperty_component = normalizeComponent(
 
 /* harmony default export */ var ResultProperty = (ResultProperty_component.exports);
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--13-0!./node_modules/@vue/cli-plugin-babel/node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/results/Results.vue?vue&type=script&lang=js&
+
 
 
 
@@ -13306,6 +13301,13 @@ var ResultsTemplatevue_type_template_id_ecd92c34_staticRenderFns = []
 
 
 
+
+
+
+
+
+
+
 //
 //
 //
@@ -13707,37 +13709,6 @@ var CalendarToolsvue_type_template_id_08ea06a1_staticRenderFns = []
 
 
 // CONCATENATED MODULE: ./src/components/CalendarTools.vue?vue&type=template&id=08ea06a1&
-
-
-// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/arrayWithoutHoles.js
-
-function _arrayWithoutHoles(arr) {
-  if (Array.isArray(arr)) return _arrayLikeToArray(arr);
-}
-// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/iterableToArray.js
-
-
-
-
-
-
-
-function _iterableToArray(iter) {
-  if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter);
-}
-// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/nonIterableSpread.js
-
-function _nonIterableSpread() {
-  throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
-}
-// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/toConsumableArray.js
-
-
-
-
-function _toConsumableArray(arr) {
-  return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread();
-}
 
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--13-0!./node_modules/@vue/cli-plugin-babel/node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/CalendarTools.vue?vue&type=script&lang=js&
 
@@ -15543,6 +15514,10 @@ var FacetElasticComboboxvue_type_template_id_50f7ab21_staticRenderFns = []
 
 
 
+
+
+
+
 //
 //
 //
@@ -15719,6 +15694,37 @@ var FacetFiltervue_type_template_id_3820d493_staticRenderFns = []
 
 
 
+
+
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -16786,7 +16792,7 @@ var FacetSorted_component = normalizeComponent(
     return {
       // eslint-disable-next-line no-undef
       config: mw.config.values.WikiSearchFront.config,
-      openFilters: true
+      openFilters: false
     };
   },
   computed: {

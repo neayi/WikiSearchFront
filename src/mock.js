@@ -59,7 +59,6 @@ if (process.env.NODE_ENV === 'production') {
               },
               // selected: 'Favo:Admin;Tag:ICT',
               searchOnInput: true,
-              'search on empty queries': false,
               layout: 'table',
               // template: 'parse test'
               // layout: 'calendar',
