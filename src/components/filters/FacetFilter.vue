@@ -5,7 +5,7 @@
     :aria-labelledby="`filter__label--${strip(name)}`"
   >
     <span
-      v-if="strippedBuckets.length"
+      v-if="strippedBuckets.length || type === 'date'"
       class="wikisearch-filter__label"
     >
       <label
@@ -38,18 +38,22 @@
           :index="999"
           :name="name"
         />
-        <wikisearch-date-input
-          disabled-direction="before"
-          :disabled-date="customDates.to"
-          :value="customDates.from"
-          @change="setCustomDate($event, 'from')"
-        />
-        <wikisearch-date-input
-          disabled-direction="after"
-          :disabled-date="customDates.from"
-          :value="customDates.to"
-          @change="setCustomDate($event, 'to')"
-        />
+        <div
+          class="wikisearch-date-input-container"
+        >
+          <wikisearch-date-input
+            disabled-direction="before"
+            :disabled-date="customDates.to"
+            :value="customDates.from"
+            @change="setCustomDate($event, 'from')"
+          />
+          <wikisearch-date-input
+            disabled-direction="after"
+            :disabled-date="customDates.from"
+            :value="customDates.to"
+            @change="setCustomDate($event, 'to')"
+          />
+        </div>
       </div>
       <wikisearch-button
         v-if="strippedBuckets.length > collapsed"
@@ -229,7 +233,7 @@ export default {
               key: this.name,
               range: {
                 gte: this.createDate(this.customDates.from),
-                lte: this.createDate(this.customDates.to),
+                lte: this.createDate(window.moment(this.customDates.to).add(1, 'days').format('YYYY-MM-DD')),
               },
               value: 'customrange',
               name: this.customDateRangeLabel,
@@ -324,8 +328,8 @@ export default {
         === 'alphabetically'
       ) {
         this.strippedBuckets = organizedBuckets.sort((a, b) => {
-          const textA = a.key.toUpperCase();
-          const textB = b.key.toUpperCase();
+          const textA = a.key_as_string ? a.key_as_string.toUpperCase() : a.key.toUpperCase();
+          const textB = b.key_as_string ? b.key_as_string.toUpperCase() : b.key.toUpperCase();
           // eslint-disable-next-line no-nested-ternary
           return textA < textB ? -1 : textA > textB ? 1 : 0;
         });
@@ -337,8 +341,8 @@ export default {
         const reA = /[^a-zA-Z]/g;
         const reN = /[^0-9]/g;
         this.strippedBuckets = organizedBuckets.sort((a, b) => {
-          const textA = a.key.toUpperCase();
-          const textB = b.key.toUpperCase();
+          const textA = a.key_as_string ? a.key_as_string.toUpperCase() : a.key.toUpperCase();
+          const textB = b.key_as_string ? b.key_as_string.toUpperCase() : b.key.toUpperCase();
           const aA = textA.split(' ')[0].replace(reA, '');
           const bA = textB.split(' ')[0].replace(reA, '');
           if (aA === bA) {
@@ -366,6 +370,11 @@ export default {
         }
         this.strippedBuckets = [bucket];
       }
+
+      if (this.config.facetSettings[this.name].order === 'reverse') {
+        this.strippedBuckets.reverse();
+      }
+
       this.bucketsToShow = this.strippedBuckets;
     },
     strip(string) {

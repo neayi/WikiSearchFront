@@ -22,6 +22,7 @@ if (process.env.NODE_ENV === 'production') {
     config: {
       values: {
         wgScriptPath: '',
+        wgArticlePath: '',
         wgMonthNames: [
           "",
           "January",

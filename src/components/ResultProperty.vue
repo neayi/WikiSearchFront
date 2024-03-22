@@ -71,7 +71,7 @@ export default {
   data() {
     return {
       // eslint-disable-next-line no-undef
-      articlePath: mw.config.values.wgArticlePath.replace('/$1', ''),
+      articlePath: mw.config.values.wgArticlePath.replace('/$1', '').replace('?title=$1', ''),
       // eslint-disable-next-line no-undef
       configTitle: mw.config.values.WikiSearchFront.config.settings.title,
     };
@@ -181,12 +181,12 @@ export default {
     src(prop) {
       if (this.config.display === 'pdf') {
         const source = '_source';
-        const subjectTitle = this.data[source].subject.title.replace(/\s/g, '_');
+        const subjectTitle = this.data[source].subject.title.replaceAll(/\s/g, '_');
         return `/img_auth.php/thumb/${subjectTitle}/page1-300px-${subjectTitle}.jpg`;
       }
 
       return this.config.display === 'image'
-        ? `${this.articlePath}/${prop}`.replace(' ', '_')
+        ? `${this.articlePath}/${prop}`.replaceAll(' ', '_')
         : false;
     },
     href(prop) {
@@ -202,18 +202,14 @@ export default {
           ? this.getUrlString
           : '';
 
-        const hasIndex = /index\.php/.test(window.location.href)
-          ? '/index.php'
-          : '';
-
-        return `${this.articlePath}${hasIndex}/${ns}${page}${urlString}`;
+        return `${this.articlePath}/${ns}${page}${urlString}`;
       }
 
       if (this.config.display === 'pdflink') {
         const snippet = this.$store.state.term
-          ? `&snippet=${this.$store.state.term}`
+          ? `&snippet=${encodeURIComponent(this.$store.state.term)}`
           : '';
-        return `${this.articlePath}/Pdf_viewer?pdf=${title.replaceAll(' ', '_')}${snippet}`;
+        return `${this.articlePath}/Pdf_viewer?pdf=${encodeURIComponent(title.replaceAll(' ', '_'))}${snippet}`;
       }
 
       if (this.config.display === 'link') {
